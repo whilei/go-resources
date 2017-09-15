@@ -8,8 +8,8 @@ install:
   - go env
   - go get golang.org/x/sys/windows
 build_script:
-  - go generate
-  - go test -v ./...
+#   - go generate
+#   - go test -v ./...
   - go build -o r.exe cmd/resources/cmd.go
   - chmod +x r.exe
   - mkdir assets
