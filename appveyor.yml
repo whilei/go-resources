@@ -1,0 +1,20 @@
+platform: x64
+clone_folder: c:\gopath\src\github.com\omeid\go-resources
+os: Visual Studio 2015
+environment:
+  GOPATH: c:\gopath
+install:
+  - go version
+  - go env
+  - go get golang.org/x/sys/windows
+build_script:
+  - go generate
+  - go test -v ./...
+  - go build -o r.exe cmd/resources/cmd.go
+  - chmod +x r.exe
+  - mkdir assets
+  - r.exe -declare -var=FS -fmt -package=assets -output=assets/assets.go example-source/*.json
+  - go test -v ./...
+artifacts:
+  - path: 'assets/assets.go'
+    name: assets
