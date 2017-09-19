@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"text/template"
 )
@@ -48,6 +49,15 @@ type Package struct {
 
 // Add a file to the package at the give path.
 func (p *Package) Add(path string, file File) error {
+	retPath := path
+	if !filepath.IsAbs(retPath) {
+		p, err := filepath.Abs(retPath)
+		if err != nil {
+			panic("cant make filepath absolute", retPath)
+		}
+		retPath = p
+	}
+	retPath := filepath.Clean(retPath)
 	p.Files[path] = file
 	return nil
 }
