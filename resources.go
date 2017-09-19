@@ -9,6 +9,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"text/template"
 )
@@ -123,6 +124,20 @@ func reader(input io.Reader, indent int) (string, error) {
 		curblock  = 0
 		linebreak = "\n" + strings.Repeat("\t", indent)
 	)
+
+	if runtime.GOOS == "windows" {
+		// two different experiments going on here...
+		// #1 -- linebreaks?
+		linebreak = "\r\n" + strings.Repeat("\t", indent)
+
+		// escape sequences?
+		buf := new(bytes.Buffer)
+		buf.ReadFrom(input)
+		bits := bytes.Replace(buf.Bytes(), []byte("\\"), []byte(""), -1)
+		buf.Reset()
+		buf.Read(bits)
+		input = buf
+	}
 
 	b := make([]byte, BlockWidth)
 
