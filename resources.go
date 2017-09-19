@@ -53,11 +53,11 @@ func (p *Package) Add(path string, file File) error {
 	if !filepath.IsAbs(retPath) {
 		p, err := filepath.Abs(retPath)
 		if err != nil {
-			panic("cant make filepath absolute", retPath)
+			panic(retPath)
 		}
 		retPath = p
 	}
-	retPath := filepath.Clean(retPath)
+	retPath = filepath.Clean(retPath)
 	p.Files[path] = file
 	return nil
 }
