@@ -14,7 +14,7 @@ build_script:
   - chmod +x r.exe
   - mkdir assets
   - r.exe -declare -var=FS -fmt -package=assets -output=assets/assets.go testdata/json-source/*.json
-  # - go test -v ./...
+  - go test -v ./...
 artifacts:
   - path: 'assets/assets.go'
     name: assets
