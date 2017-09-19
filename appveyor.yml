@@ -13,7 +13,7 @@ build_script:
   - go build -o r.exe cmd/resources/cmd.go
   - chmod +x r.exe
   - mkdir assets
-  - r.exe -declare -var=FS -fmt -package=assets -output=assets/assets.go testdata/json-source-minified/*.json
+  - r.exe -declare -var=FS -fmt -package="assets" -output="./assets/assets.go" "./testdata/json-source/*.json"
   - go test -v ./...
 artifacts:
   - path: 'assets/assets.go'
