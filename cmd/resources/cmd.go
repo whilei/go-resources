@@ -69,6 +69,7 @@ func main() {
 
 	for file := range files {
 		path := strings.TrimPrefix(file, trimPath)
+		path = filepath.Clean(path)
 		err := res.AddFile(path, file)
 		if err != nil {
 			log.Fatal(err)
