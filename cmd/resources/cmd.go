@@ -41,7 +41,7 @@ func main() {
 		log.Fatal("-output is required.")
 	}
 	if !filepath.IsAbs(out) {
-		o, err = filepath.Abs(out)
+		o, err := filepath.Abs(out)
 		if err != nil {
 			log.Fatal("failed to make output path absolute", out)
 		}
